@@ -1,0 +1,11 @@
+
+form
+  .form-group
+    input.form-control.input-sm(type="text",placeholder="Name", ng-model="model.name")
+  .form-group
+    input.form-control.input-sm(type="text",placeholder="Location", ng-model="model.srcLocation")
+  button.btn.btn-primary(ng-click="save()")
+    |Save
+  img(ng-show="model.isLoading" src="/images/loading.gif")
+   
+

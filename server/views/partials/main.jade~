@@ -1,0 +1,4 @@
+﻿span {{model.myMessage}}
+
+ul(ng-repeat='item in model.demoData')
+    li {{ item.name }} - {{ item._id }}

@@ -1,0 +1,18 @@
+﻿
+form.form-inline
+  .form-group
+    input.form-control.input-sm(type="text",placeholder="Enter keyword(s)", ng-model="model.searchFor")
+  button.btn.btn-primary(ng-click="search()")
+    |Search
+  img(ng-show="model.isLoading" src="/images/loading.gif")
+  .container.results(ng-show="model.results.length>0")
+    div.result.col-md-4.panel.panel-primary(ng-repeat="item in model.results")
+      div.panel-heading
+        div.panel-title
+          {{item.name}}
+      div.panel-body
+        h4 {{item.srcLocation}}
+        {{item.description}}
+        br
+        button.btn.editButton(ng-click="edit(item.id)") Edit
+

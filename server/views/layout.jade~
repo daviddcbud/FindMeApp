@@ -1,0 +1,11 @@
+﻿doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/vendor/toastr/toastr.css')
+    link(rel='stylesheet', href='/stylesheets/site.css')
+    
+  body(ng-app='myModule')
+    block content
+    include scripts

@@ -1,0 +1,12 @@
+﻿doctype html
+html
+  head
+    title= title
+    
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js')
+    script(src='/javascripts/app.js')
+  body(ng-app='mymodule' ng-controller='MainCtrl')
+    block content
+    span {{model}}
