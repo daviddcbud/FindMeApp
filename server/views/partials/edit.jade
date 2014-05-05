@@ -1,14 +1,19 @@
 
 form#editForm.editForm(name="editForm" novalidate)
   .form-group
+    label Name
     input.form-control.input-sm(type="text",placeholder="Name", ng-model="model.item.name" required)
   .form-group
+    label Location
     input.form-control.input-sm(type="text",placeholder="Location", ng-model="model.item.srcLocation" required)
   .form-group
+    label Description
     input.form-control.input-sm(type="text",placeholder="Description", ng-model="model.item.description")
   .form-group
-    input.form-control.input-sm(type="text",placeholder="Keyword(s) separated by comma or semi-colon", ng-model="model.item.keywords")
+    label Keywords
+    input.form-control.input-sm(type="text",placeholder="Keyword(s) separated by comma or semi-colon", ng-model="model.item.keywordsText" required)
   .form-group
+    label Notes
     textarea#notes.input-sm(ng-model="model.item.notes", placeholder="Notes")
   button.btn.btn-primary(ng-click="save()" ng-disabled="editForm.$invalid")
     |Save

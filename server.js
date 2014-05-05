@@ -32,6 +32,7 @@ mainRoute.get('/partials/*', function(req,res) {
 //default route to the index route
 mainRoute.get('/api/searchByKeywords/:keywords', routes.searchByKeywords);
 mainRoute.get('/api/getById/:id', routes.getById);
+mainRoute.post('/api/save', routes.save);
 mainRoute.get('/', routes.index);
 app.use('/',mainRoute);
 

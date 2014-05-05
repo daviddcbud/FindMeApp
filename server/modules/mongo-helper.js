@@ -12,17 +12,17 @@ function MongoHelper( servername, port, databaseName, collectionName, username, 
     this.openDb = openDb;
     this.username = username;
     this.password = password;
-
+    this.save=save;
 
 
 }
 
 module.exports = MongoHelper;
 
-function openDb( seedData, callback ) {
-    console.log('seed data ' + JSON.stringify(seedData));
+function openDb(self,callback ) {
+    this.callback=callback;
     console.log( 'open db ' + this.dbName );
-    var self = this;
+    
     var Server = mongo.Server,
         Db = mongo.Db;
 
@@ -30,66 +30,29 @@ function openDb( seedData, callback ) {
     var db = new Db( self.dbName, server );
 
 
-
-    db.open( function ( err, db ) {
-
-        if(self.username){
-                db.authenticate( self.username, self.password, function ( err, success ) {
-                    if ( !err ) {
-                        console.log( "Connected to " + self.dbName + " database" );
-                        seedCollection( seedData, self.colName, callback, db );
-
-                    }
-                    else {
-                        console.log( JSON.stringify( err ) );
-                        throw err;
-                    }
-                });
-        }
-        else
-            {
-                console.log( "Connected to " + self.dbName + " database" );
-                seedCollection( seedData, self.colName, callback, db );
-            }
-
-
-    });
+    console.log('opening db ' + self.dbName);
+    db.open(function(err,db){
+        
+        self.callback(err,db);
+        if(err)throw err;
+      }
+      );
 };
 
-function seedCollection( data, colName, callback, db ) {
+
+function findAll( keywords,callback ) {
     var self = this;
-    console.log( 'collection=' + colName );
-    db.collection( colName, { strict: true }, function ( err, collection ) {
-        if ( err ) {
-            console.log( err + "..The " + colName + " collection doesn't exist. Seeding..." );
-            db.collection( colName, function ( err, collection ) {
-                
-                collection.insert( data, { safe: true }, function ( err, result ) { 
-                    if(err) console.log(err);
-
-                    if(callback) callback( db );
-                     });
-            });
-        }
-        else {
-           if(callback)  callback( db );
-        }
-
-    });
-
-}
-
-function findAll( callback ) {
-    var self = this;
-    this.openDb( [], function ( db ) {
-
+    console.log('searching ' + keywords);
+    var findArray=keywords.split(/;|,/);
+    this.openDb(self, function (err, db ) {
+     if(err) throw(err);
         db.collection( self.colName, function ( err, collection ) {
             if ( err ) {
                 console.log( err );
                 throw err;
             }
             else {
-                collection.find().toArray( function ( err, items ) {
+                collection.find({keywords: { $in: findArray}}).toArray( function ( err, items ) {
 
                     callback( err, items );
                 });
@@ -102,8 +65,8 @@ function findAll( callback ) {
 function findById( id, callback ) {
     var self = this;
     var BSON = mongo.BSONPure;
-    this.openDb( [], function ( db ) {
-
+    this.openDb(self,function( err, db ) {
+        if(err) throw(err);
         console.log( 'Retrieving id: ' + id );
         db.collection( self.colName, function ( err, collection ) {
             collection.findOne( { '_id': new BSON.ObjectID( id ) }, function ( err, item ) {
@@ -111,8 +74,35 @@ function findById( id, callback ) {
             });
         });
     });
-};
+}
 
+function save(document, callback){
+  var self=this;
+  var BSON = mongo.BSONPure;
+  this.openDb(this,function ( err,db ) {
+        if(err) throw(err);
+        console.log( 'saving' );
+        db.collection( self.colName, function ( err, collection ) {
+            if(err) callback(err);
+            if(document._id){
+                  var id=document._id;
+                  
+                  var keywords=document.keywordsText.split(/;|,/);
+                  
+                  collection.update({'_id': new BSON.ObjectID( id )}, {name:document.name,
+srcLocation:document.srcLocation, description:document.description, notes:document.notes, keywords:keywords}, function ( err ) {
+                  callback( err );
+                  });
+
+            }
+            else{
+              collection.save( document, function ( err ) {
+                  callback( err );
+              });
+            }
+        });
+    });
+}
 
 
 

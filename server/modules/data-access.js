@@ -10,21 +10,26 @@ var env=process.env.NODE_ENV || 'development';
 }
  
  
-dbAccess.openDb([],null);
   
 
 module.exports.openDb= function(callback){
       
-    dbAccess.openDb(people,callback);
+    dbAccess.openDb(callback);
 };
  
 
-module.exports.findAll= function(callback){
+module.exports.findAll= function(keywords,callback){
       
-    dbAccess.findAll(callback);
+    dbAccess.findAll(keywords,callback);
 };
 
 module.exports.findById=function(id,callback){
     dbAccess.findById(id,callback);
+    };
+
+    
+
+module.exports.save=function(document,callback){
+    dbAccess.save(document,callback);
     };
     

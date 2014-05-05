@@ -4,7 +4,7 @@
         function Sample(id,name, keywords, notes,description, srcLocation)
         {
             this.description=description;
-            this.id=id;
+            this._id=id;
             this.name=name;
             this.keywords=keywords;
             this.notes=notes;
@@ -25,9 +25,15 @@ sampleData.push(sample);
 
     };
 
-  controller.findAll=function(callback){
+  controller.findAll=function(keywords,callback){
     callback(null,sampleData);
 
 
     };
+
+	controller.save=function(document,callback){
+	    if(!document.id) document.id=sampleData.length-1;
+		sampleData.push(document);
+		callback(null);
+	};
 })(module.exports);

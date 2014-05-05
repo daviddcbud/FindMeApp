@@ -7,9 +7,16 @@ angular.module(myAppConfig.moduleName).controller('MainCtrl',['$scope','$log','d
          $scope.model.searchFor='';
          $scope.model.results=[];
          $scope.model.isLoading=false;
-
-         $scope.search= function(){
+        $scope.hasSearched=false;
+		 if(sessionStorage.searchText){
+		  $scope.model.searchFor=sessionStorage.searchText;
+		  search();
+		 }
+		
+		function search(){
+			sessionStorage.searchText=$scope.model.searchFor;
              $log.debug('searching ');
+             $scope.hasSearched=true;
              dataAccess.searchKeywords($scope.model.searchFor).then(function(data){
                  $scope.model.isLoading=false;
                  $scope.model.results=data;
@@ -18,6 +25,10 @@ angular.module(myAppConfig.moduleName).controller('MainCtrl',['$scope','$log','d
                      $scope.model.isLoading=false;
                      alert(err);
                      });
+		}
+		
+         $scope.search= function(){
+			 search();
              
 
 

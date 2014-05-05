@@ -2,6 +2,23 @@
 angular.module( myAppConfig.moduleName ).factory( 'dataAccess', ['$http', '$q',
     function ( $http, $q ) {
 
+	
+        function save(document) {
+            var defer = $q.defer();
+
+            $http.post('/api/save', document).
+                success( function ( data ) {
+
+                    defer.resolve( data );
+                }
+                ).
+                error( function ( err ) {
+                    defer.reject( err );
+                });
+
+
+            return defer.promise;
+        }
     
         function getById(id) {
             var defer = $q.defer();
@@ -39,7 +56,8 @@ angular.module( myAppConfig.moduleName ).factory( 'dataAccess', ['$http', '$q',
 
     return {
             searchKeywords: searchKeywords,
-            getById: getById, 
+            getById: getById,
+			save:save,
         }
 
 

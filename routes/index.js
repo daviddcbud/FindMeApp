@@ -9,12 +9,35 @@ exports.index = function(req, res){
 };
 
 
+exports.save = function(req, res){
+    var document=req.body;
+    var env=process.env.NODE_ENV || 'development';
+
+   var db;
+   if('test'==env){
+       db=require("../server/modules/data-access-mock");
+       }
+   else{
+        db=require("../server/modules/data-access");
+       }
+     
+    db.save(document,function(err) {
+        if(err){
+			res.send(400,err);
+		}
+		else{
+			res.send(200,'');
+		}
+        }); 
+    
+};
+
 exports.getById = function(req, res){
     var id=req.params.id;
     var env=process.env.NODE_ENV || 'development';
 
    var db;
-   if('development'==env){
+   if('test'==env){
        db=require("../server/modules/data-access-mock");
        }
    else{
@@ -33,14 +56,14 @@ exports.searchByKeywords = function(req, res){
     var env=process.env.NODE_ENV || 'development';
 
    var db;
-   if('development'==env){
+   if('test'==env){
        db=require("../server/modules/data-access-mock");
        }
    else{
         db=require("../server/modules/data-access");
        }
      
-    db.findAll(function(err, items) {
+    db.findAll(keywords, function(err, items) {
         console.log('sending items');
         res.send(items);
         }); 

@@ -32,7 +32,7 @@ btn {
   margin-right: 10px;
 }
 .editButton {
-  margin-top: 5px;
+  margin: 5px;
 }
 .editForm .form-group {
   width: 50%;
@@ -40,4 +40,10 @@ btn {
 #notes {
   width: 600px;
   height: 100px;
+}
+.noresults {
+  margin: 10px;
+}
+.newButton {
+  margin-left: 15px;
 }
