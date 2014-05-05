@@ -16,10 +16,11 @@ angular.module(myAppConfig.moduleName).controller('MainCtrl',['$scope','$log','d
 		function search(){
 			sessionStorage.searchText=$scope.model.searchFor;
              $log.debug('searching ');
-             $scope.hasSearched=true;
+             
              dataAccess.searchKeywords($scope.model.searchFor).then(function(data){
                  $scope.model.isLoading=false;
                  $scope.model.results=data;
+                 $scope.hasSearched=true;
                  },
                  function(err){
                      $scope.model.isLoading=false;

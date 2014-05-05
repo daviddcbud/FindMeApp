@@ -44,6 +44,9 @@ function findAll( keywords,callback ) {
     var self = this;
     
     var findArray=keywords.split(/;|,/);
+    for(var key in findArray){
+          findArray[key]= findArray[key].trim().toUpperCase();
+        }
     this.openDb(self, function (err, db ) {
      if(err) throw(err);
         db.collection( self.colName, function ( err, collection ) {
@@ -81,13 +84,15 @@ function save(document, callback){
   var BSON = mongo.BSONPure;
   this.openDb(this,function ( err,db ) {
         if(err) throw(err);
-        
+        var keywords=document.keywordsText.split(/;|,/);
+        for(var key in keywords){
+          keywords[key]= keywords[key].trim().toUpperCase();
+        }
         db.collection( self.colName, function ( err, collection ) {
             if(err) callback(err);
             if(document._id){
                   var id=document._id;
                   
-                  var keywords=document.keywordsText.split(/;|,/);
                   
                   collection.update({'_id': new BSON.ObjectID( id )}, {name:document.name,
 srcLocation:document.srcLocation, description:document.description, notes:document.notes, keywords:keywords}, function ( err ) {
@@ -96,9 +101,10 @@ srcLocation:document.srcLocation, description:document.description, notes:docume
 
             }
             else{
-              collection.save( document, function ( err ) {
+                collection.save({name:document.name,
+srcLocation:document.srcLocation, description:document.description, notes:document.notes, keywords:keywords}, function ( err ) {
                   callback( err );
-              });
+                  });
             }
         });
     });

@@ -3,7 +3,7 @@ var dbAccess;
 var env=process.env.NODE_ENV || 'development';
     if ('development' == env) {
         
-        dbAccess= new MongoHelper('freemansnewpc', 27017,'findMeApp','apps'); 
+        dbAccess= new MongoHelper('freemanspare', 27017,'findMeApp','apps'); 
         }
     else{
     dbAccess= new MongoHelper('snsdev03', 27017,'findMeApp','apps'); 

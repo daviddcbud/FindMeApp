@@ -34,6 +34,7 @@ mainRoute.get('/api/searchByKeywords/:keywords', routes.searchByKeywords);
 mainRoute.get('/api/getById/:id', routes.getById);
 mainRoute.post('/api/save', routes.save);
 mainRoute.get('/', routes.index);
+mainRoute.get('*', routes.index);
 app.use('/',mainRoute);
 
 //fire up the server and get busy
