@@ -2,8 +2,8 @@
 var dbAccess;
 var env=process.env.NODE_ENV || 'development';
     if ('development' == env) {
-        console.log('in dev mode, connect to local db');
-        dbAccess= new MongoHelper('localhost', 27017,'findMeApp','apps'); 
+        
+        dbAccess= new MongoHelper('freemansnewpc', 27017,'findMeApp','apps'); 
         }
     else{
     dbAccess= new MongoHelper('snsdev03', 27017,'findMeApp','apps'); 

@@ -21,7 +21,7 @@ module.exports = MongoHelper;
 
 function openDb(self,callback ) {
     this.callback=callback;
-    console.log( 'open db ' + this.dbName );
+    
     
     var Server = mongo.Server,
         Db = mongo.Db;
@@ -30,7 +30,7 @@ function openDb(self,callback ) {
     var db = new Db( self.dbName, server );
 
 
-    console.log('opening db ' + self.dbName);
+     
     db.open(function(err,db){
         
         self.callback(err,db);
@@ -42,7 +42,7 @@ function openDb(self,callback ) {
 
 function findAll( keywords,callback ) {
     var self = this;
-    console.log('searching ' + keywords);
+    
     var findArray=keywords.split(/;|,/);
     this.openDb(self, function (err, db ) {
      if(err) throw(err);
@@ -67,7 +67,7 @@ function findById( id, callback ) {
     var BSON = mongo.BSONPure;
     this.openDb(self,function( err, db ) {
         if(err) throw(err);
-        console.log( 'Retrieving id: ' + id );
+        
         db.collection( self.colName, function ( err, collection ) {
             collection.findOne( { '_id': new BSON.ObjectID( id ) }, function ( err, item ) {
                 callback( err, item );
@@ -81,7 +81,7 @@ function save(document, callback){
   var BSON = mongo.BSONPure;
   this.openDb(this,function ( err,db ) {
         if(err) throw(err);
-        console.log( 'saving' );
+        
         db.collection( self.colName, function ( err, collection ) {
             if(err) callback(err);
             if(document._id){

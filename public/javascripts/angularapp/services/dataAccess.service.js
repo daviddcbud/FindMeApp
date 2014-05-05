@@ -57,7 +57,7 @@ angular.module( myAppConfig.moduleName ).factory( 'dataAccess', ['$http', '$q',
     return {
             searchKeywords: searchKeywords,
             getById: getById,
-			save:save,
+			save:save
         }
 
 
