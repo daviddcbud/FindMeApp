@@ -1,13 +1,13 @@
 ﻿
 (function(controller)
     {
-        function Sample(id,name, keywords, links,description, srcLocation)
+        function Sample(id,name, keywords, notes,description, srcLocation)
         {
             this.description=description;
             this.id=id;
             this.name=name;
             this.keywords=keywords;
-            this.links=links;
+            this.notes=notes;
             this.srcLocation=srcLocation;
 
         }
@@ -20,7 +20,7 @@ sample=new Sample(2,'Acres Export',['export','acres','acres export'],['\\snsdev0
 sampleData.push(sample);
 
   controller.findById=function(id,callback){
-    callback(null,sampleData[id]);
+    callback(null,sampleData[id-1]);
 
 
     };

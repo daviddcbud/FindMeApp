@@ -1,7 +1,7 @@
 ﻿
 form.form-inline
   .form-group
-    input.form-control.input-sm(type="text",placeholder="Enter keyword(s)", ng-model="model.searchFor")
+    input.form-control.input-sm.col(type="text",placeholder="Enter keyword(s)", ng-model="model.searchFor")
   button.btn.btn-primary(ng-click="search()")
     |Search
   img(ng-show="model.isLoading" src="/images/loading.gif")

@@ -1,10 +1,16 @@
 
-form
+form#editForm.editForm(name="editForm" novalidate)
   .form-group
-    input.form-control.input-sm(type="text",placeholder="Name", ng-model="model.name")
+    input.form-control.input-sm(type="text",placeholder="Name", ng-model="model.item.name" required)
   .form-group
-    input.form-control.input-sm(type="text",placeholder="Location", ng-model="model.srcLocation")
-  button.btn.btn-primary(ng-click="save()")
+    input.form-control.input-sm(type="text",placeholder="Location", ng-model="model.item.srcLocation" required)
+  .form-group
+    input.form-control.input-sm(type="text",placeholder="Description", ng-model="model.item.description")
+  .form-group
+    input.form-control.input-sm(type="text",placeholder="Keyword(s) separated by comma or semi-colon", ng-model="model.item.keywords")
+  .form-group
+    textarea#notes.input-sm(ng-model="model.item.notes", placeholder="Notes")
+  button.btn.btn-primary(ng-click="save()" ng-disabled="editForm.$invalid")
     |Save
   img(ng-show="model.isLoading" src="/images/loading.gif")
    

@@ -34,3 +34,10 @@ btn {
 .editButton {
   margin-top: 5px;
 }
+.editForm .form-group {
+  width: 50%;
+}
+#notes {
+  width: 600px;
+  height: 100px;
+}
