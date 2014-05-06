@@ -6,7 +6,7 @@ var env=process.env.NODE_ENV || 'development';
         dbAccess= new MongoHelper('freemanspare', 27017,'findMeApp','apps'); 
         }
     else{
-    dbAccess= new MongoHelper('localhost', 27017,'findMeApp','apps'); 
+    dbAccess= new MongoHelper('snsdev03', 27017,'findMeApp','apps'); 
 }
  
  
